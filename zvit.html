@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звітність | Демократична Сокира</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-active {
+            color: black;
+            border-color: black;
+        }
+
+        .report-card {
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full glass nav-shadow z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+                <div class="flex items-center space-x-4 sm:space-x-8 lg:space-x-12">
+                    <a href="/" class="flex items-center space-x-2 lg:space-x-3 touch-feedback rounded-lg p-1 -m-1">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-black flex items-center justify-center font-black text-white text-sm lg:text-lg shadow-lg">
+                            ДС
+                        </div>
+                        <span class="font-extrabold text-gray-900 text-xs sm:text-sm lg:text-lg tracking-tight hidden sm:block">ДЕМОКРАТИЧНА СОКИРА</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-6">
+                    <a href="#" class="text-xs sm:text-sm font-bold text-gray-700 hover:text-black transition-colors px-2 py-1 rounded touch-feedback">EN</a>
+                    <button onclick="openDonate()" class="bg-black text-white px-3 sm:px-4 lg:px-6 py-2 lg:py-3 text-xs sm:text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                        ДОНАТ
+                    </button>
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 touch-feedback rounded-lg -mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full bg-white z-50 lg:hidden">
+        <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200">
+            <span class="font-bold text-gray-900 text-lg">МЕНЮ</span>
+            <button onclick="toggleMenu()" class="p-2 touch-feedback rounded-lg -mr-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-6">
+            <a href="/#projects" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРОЄКТИ</a>
+            <a href="/#reports" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ЗВІТНІСТЬ</a>
+            <a href="/#business" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">БІЗНЕСУ</a>
+            <a href="/#about" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРО НАС</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <section class="pt-20 sm:pt-24 lg:pt-32 pb-8 sm:pb-12 lg:pb-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4 sm:mb-6 tracking-tight">ЗВІТНІСТЬ</h1>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8">
+                    Повна прозорість використання коштів та передачі обладнання. Кожен внесок можна відслідкувати від моменту надходження до передачі військовим.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="pb-8 sm:pb-12 lg:pb-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-white border-2 border-gray-200 p-4 sm:p-6 rounded-lg text-center">
+                    <div class="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 lg:mb-2">92M</div>
+                    <div class="text-xs sm:text-sm tracking-wider text-gray-500">ЗІБРАНО КОШТІВ, ₴</div>
+                </div>
+                <div class="bg-white border-2 border-gray-200 p-4 sm:p-6 rounded-lg text-center">
+                    <div class="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 lg:mb-2">276</div>
+                    <div class="text-xs sm:text-sm tracking-wider text-gray-500">ЗАКРИТИХ ПРОЄКТІВ</div>
+                </div>
+                <div class="bg-white border-2 border-gray-200 p-4 sm:p-6 rounded-lg text-center">
+                    <div class="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 lg:mb-2">1,847</div>
+                    <div class="text-xs sm:text-sm tracking-wider text-gray-500">ПЕРЕДАЧ</div>
+                </div>
+                <div class="bg-white border-2 border-gray-200 p-4 sm:p-6 rounded-lg text-center">
+                    <div class="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 lg:mb-2">47</div>
+                    <div class="text-xs sm:text-sm tracking-wider text-gray-500">ПІДРОЗДІЛІВ ЗСУ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="border-b border-gray-200">
+                <div class="flex space-x-8">
+                    <button onclick="switchTab('financial')" class="tab-active pb-4 text-sm sm:text-base font-bold tracking-wide border-b-2 transition-colors">
+                        ФІНАНСОВІ ЗВІТИ
+                    </button>
+                    <button onclick="switchTab('transfers')" class="text-gray-500 hover:text-black pb-4 text-sm sm:text-base font-bold tracking-wide border-b-2 border-transparent transition-colors">
+                        ЗВІТИ ПРО ПЕРЕДАЧІ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Financial Reports -->
+            <div id="financial" class="py-8">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Report Card -->
+                    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden report-card shadow-lg">
+                        <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center text-white/20">
+                                    <div class="text-sm font-bold tracking-wider mb-1">PDF PREVIEW</div>
+                                    <div class="text-xs">1920 × 1080</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-1">ЖОВТЕНЬ 2025</div>
+                                    <div class="font-bold text-gray-900">Фінансовий звіт</div>
+                                </div>
+                                <div class="text-xs font-medium text-gray-500">29.3 MB</div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-black text-white px-4 py-2 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                                    ЗАВАНТАЖИТИ
+                                </button>
+                                <button class="w-10 h-8 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white active:scale-95 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Card -->
+                    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden report-card shadow-lg">
+                        <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center text-white/20">
+                                    <div class="text-sm font-bold tracking-wider mb-1">PDF PREVIEW</div>
+                                    <div class="text-xs">1920 × 1080</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-1">ВЕРЕСЕНЬ 2025</div>
+                                    <div class="font-bold text-gray-900">Фінансовий звіт</div>
+                                </div>
+                                <div class="text-xs font-medium text-gray-500">27.8 MB</div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-black text-white px-4 py-2 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                                    ЗАВАНТАЖИТИ
+                                </button>
+                                <button class="w-10 h-8 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white active:scale-95 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Card -->
+                    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden report-card shadow-lg">
+                        <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center text-white/20">
+                                    <div class="text-sm font-bold tracking-wider mb-1">PDF PREVIEW</div>
+                                    <div class="text-xs">1920 × 1080</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-1">СЕРПЕНЬ 2025</div>
+                                    <div class="font-bold text-gray-900">Фінансовий звіт</div>
+                                </div>
+                                <div class="text-xs font-medium text-gray-500">31.2 MB</div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-black text-white px-4 py-2 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                                    ЗАВАНТАЖИТИ
+                                </button>
+                                <button class="w-10 h-8 flex items-center justify-center border-2 border-black hover:bg-black hover:text-white active:scale-95 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Reports -->
+            <div id="transfers" class="py-8 hidden">
+                <div class="space-y-4 sm:space-y-6">
+                    <!-- Transfer Report -->
+                    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden report-card shadow-lg">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">30 ЖОВТНЯ 2025</div>
+                                    <h3 class="text-lg sm:text-xl font-black text-gray-900 mb-2">Передача дронів Mavic 3</h3>
+                                    <p class="text-sm text-gray-600 mb-4">
+                                        5 квадрокоптерів DJI Mavic 3 передано 93-й ОМБр "Холодний Яр"
+                                    </p>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-black text-white px-4 py-2 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                                            ДЕТАЛІ
+                                        </button>
+                                        <button class="px-4 py-2 border-2 border-black text-xs font-bold hover:bg-black hover:text-white active:scale-95 transition-all tracking-wide">
+                                            ФОТО
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Report -->
+                    <div class="bg-white border-2 border-gray-200 rounded-lg overflow-hidden report-card shadow-lg">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">29 ЖОВТНЯ 2025</div>
+                                    <h3 class="text-lg sm:text-xl font-black text-gray-900 mb-2">Передача тепловізорів</h3>
+                                    <p class="text-sm text-gray-600 mb-4">
+                                        3 тепловізійні приціли передано 56-й ОМПБр "Маріуполь"
+                                    </p>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-black text-white px-4 py-2 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                                            ДЕТАЛІ
+                                        </button>
+                                        <button class="px-4 py-2 border-2 border-black text-xs font-bold hover:bg-black hover:text-white active:scale-95 transition-all tracking-wide">
+                                            ФОТО
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10">
+                <div class="col-span-2 lg:col-span-1">
+                    <div class="font-black text-base sm:text-lg mb-3 sm:mb-4 tracking-tight">ДЕМОКРАТИЧНА СОКИРА</div>
+                    <p class="text-xs sm:text-sm opacity-70 leading-relaxed">
+                        Благодійна організація підтримки Збройних Сил України
+                    </p>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ОРГАНІЗАЦІЯ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Про нас</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Команда</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Партнери</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Контакти</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ПРОЄКТИ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Активні збори</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Закриті проєкти</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Звітність</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Для бізнесу</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">РЕКВІЗИТИ</div>
+                    <div class="text-xs sm:text-sm opacity-70 mb-4 sm:mb-6 space-y-1">
+                        <div>ЄДРПОУ: 44533136</div>
+                        <div>IBAN: UA36...724311</div>
+                    </div>
+                    <div class="flex space-x-2 sm:space-x-3">
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">FB</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">IG</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">TG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-6 sm:pt-8 text-center text-xs sm:text-sm opacity-50">
+                <p>© 2025 ДЕМОКРАТИЧНА СОКИРА. ВСІ ПРАВА ЗАХИЩЕНО.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openDonate() {
+            alert('Відкриття форми донату. Тут буде інтеграція з платіжними системами.');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('#financial, #transfers').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Update tab buttons
+            document.querySelectorAll('button[onclick^="switchTab"]').forEach(button => {
+                button.classList.remove('tab-active');
+            });
+            
+            // Add active class to clicked button
+            event.currentTarget.classList.add('tab-active');
+        }
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                nav.classList.remove('nav-shadow');
+            } else {
+                nav.classList.add('nav-shadow');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
