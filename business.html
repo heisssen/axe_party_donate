@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнерство | Демократична Сокира</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #000;
+            ring-color: #000;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full glass nav-shadow z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+                <div class="flex items-center space-x-4 sm:space-x-8 lg:space-x-12">
+                    <a href="/" class="flex items-center space-x-2 lg:space-x-3 touch-feedback rounded-lg p-1 -m-1">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-black flex items-center justify-center font-black text-white text-sm lg:text-lg shadow-lg">
+                            ДС
+                        </div>
+                        <span class="font-extrabold text-gray-900 text-xs sm:text-sm lg:text-lg tracking-tight hidden sm:block">ДЕМОКРАТИЧНА СОКИРА</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-6">
+                    <a href="#" class="text-xs sm:text-sm font-bold text-gray-700 hover:text-black transition-colors px-2 py-1 rounded touch-feedback">EN</a>
+                    <button onclick="openDonate()" class="bg-black text-white px-3 sm:px-4 lg:px-6 py-2 lg:py-3 text-xs sm:text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                        ДОНАТ
+                    </button>
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 touch-feedback rounded-lg -mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full bg-white z-50 lg:hidden">
+        <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200">
+            <span class="font-bold text-gray-900 text-lg">МЕНЮ</span>
+            <button onclick="toggleMenu()" class="p-2 touch-feedback rounded-lg -mr-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-6">
+            <a href="/#projects" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРОЄКТИ</a>
+            <a href="/#reports" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ЗВІТНІСТЬ</a>
+            <a href="/#business" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">БІЗНЕСУ</a>
+            <a href="/#about" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРО НАС</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 bg-black text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <div class="fade-in">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 tracking-tight">
+                        ПІДТРИМКА<br/>
+                        ВІД БІЗНЕСУ
+                    </h1>
+                    <p class="text-base sm:text-lg lg:text-xl opacity-80 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+                        Долучайтесь до спільноти компаній, які підтримують ЗСУ через нашу організацію. Прозора звітність, податкові пільги та брендинг на обладнанні.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <button onclick="scrollToForm()" class="bg-white text-black px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 text-sm sm:text-base font-bold hover:bg-gray-100 active:scale-95 transition-all tracking-wide shadow-xl">
+                            СТАТИ ПАРТНЕРОМ
+                        </button>
+                        <button onclick="scrollToSection('partners')" class="border-2 border-white text-white px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 text-sm sm:text-base font-bold hover:bg-white hover:text-black active:scale-95 transition-all tracking-wide">
+                            НАШІ ПАРТНЕРИ
+                        </button>
+                    </div>
+                </div>
+                <div class="relative mt-8 lg:mt-0 slide-up">
+                    <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden rounded-lg shadow-2xl">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center text-white/20">
+                                <div class="text-xs lg:text-sm font-bold tracking-wider mb-2">HERO IMAGE</div>
+                                <div class="text-xs">1200 × 1200 px</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-12 sm:py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4 tracking-tight">ПЕРЕВАГИ ПАРТНЕРСТВА</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+                    Підтримуючи ЗСУ через нашу організацію, ви отримуєте ряд переваг для вашого бізнесу
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">Податкові пільги</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Благодійні внески можна включити до податкових витрат. Надаємо всі необхідні документи.
+                    </p>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">Брендинг</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Розміщення логотипу компанії на техніці та обладнанні, згадування в звітах та соцмережах.
+                    </p>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">Звітність</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Щомісячні детальні звіти про використання коштів та фото/відео матеріали передач.
+                    </p>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">Персональний менеджер</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Виділений менеджер для комунікації та координації всіх питань співпраці.
+                    </p>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">Гнучкі умови</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Можливість обрати конкретні проєкти та форму підтримки, що найкраще підходить вашій компанії.
+                    </p>
+                </div>
+
+                <!-- Feature Card -->
+                <div class="bg-white border-2 border-gray-200 p-6 sm:p-8 rounded-lg feature-card">
+                    <div class="w-12 h-12 bg-black flex items-center justify-center mb-6 rounded-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-3">PR підтримка</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Публікації про співпрацю в ЗМІ та соціальних мережах, участь у спільних заходах.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" class="py-12 sm:py-16 lg:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4 tracking-tight">НАШІ ПАРТНЕРИ</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+                    Компанії, які вже підтримують ЗСУ разом з нами
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+                <div class="aspect-square bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="text-center text-gray-400">
+                        <div class="text-sm font-bold mb-1">LOGO</div>
+                        <div class="text-xs">200×200</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-12 sm:py-16 lg:py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+                <div class="text-white">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 tracking-tight">
+                        СТАТИ ПАРТНЕРОМ
+                    </h2>
+                    <p class="text-base sm:text-lg opacity-80 mb-6 sm:mb-8 leading-relaxed">
+                        Заповніть форму, і наш менеджер зв'яжеться з вами протягом одного робочого дня для обговорення деталей співпраці.
+                    </p>
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="opacity-80">
+                                <div class="text-sm font-bold mb-1">Email</div>
+                                <div class="text-sm">business@democratychna-sokyra.org</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div class="opacity-80">
+                                <div class="text-sm font-bold mb-1">Телефон</div>
+                                <div class="text-sm">+38 (044) 123-45-67</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-lg contact-form">
+                    <form onsubmit="event.preventDefault(); submitForm();" class="space-y-4">
+                        <div>
+                            <label for="company" class="block text-sm font-bold text-gray-900 mb-2">НАЗВА КОМПАНІЇ</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-gray-900 mb-2">КОНТАКТНА ОСОБА</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-bold text-gray-900 mb-2">EMAIL</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-bold text-gray-900 mb-2">ТЕЛЕФОН</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-bold text-gray-900 mb-2">КОМЕНТАР</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-black text-white py-4 text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide">
+                            НАДІСЛАТИ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-10 sm:py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10">
+                <div class="col-span-2 lg:col-span-1">
+                    <div class="font-black text-base sm:text-lg mb-3 sm:mb-4 tracking-tight">ДЕМОКРАТИЧНА СОКИРА</div>
+                    <p class="text-xs sm:text-sm opacity-70 leading-relaxed">
+                        Благодійна організація підтримки Збройних Сил України
+                    </p>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ОРГАНІЗАЦІЯ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Про нас</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Команда</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Партнери</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Контакти</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ПРОЄКТИ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Активні збори</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Закриті проєкти</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Звітність</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Для бізнесу</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">РЕКВІЗИТИ</div>
+                    <div class="text-xs sm:text-sm opacity-70 mb-4 sm:mb-6 space-y-1">
+                        <div>ЄДРПОУ: 44533136</div>
+                        <div>IBAN: UA36...724311</div>
+                    </div>
+                    <div class="flex space-x-2 sm:space-x-3">
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">FB</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">IG</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">TG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-6 sm:pt-8 text-center text-xs sm:text-sm opacity-50">
+                <p>© 2025 ДЕМОКРАТИЧНА СОКИРА. ВСІ ПРАВА ЗАХИЩЕНО.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openDonate() {
+            alert('Відкриття форми донату. Тут буде інтеграція з платіжними системами.');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function scrollToForm() {
+            scrollToSection('contact');
+        }
+
+        function submitForm() {
+            // Here would be the actual form submission logic
+            alert('Дякуємо за заповнення форми! Ми зв\'яжемося з вами найближчим часом.');
+            // Reset form
+            document.querySelector('form').reset();
+        }
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                nav.classList.remove('nav-shadow');
+            } else {
+                nav.classList.add('nav-shadow');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide-up, .fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
