@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всі проєкти | Демократична Сокира</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .filter-active {
+            background-color: black;
+            color: white;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+        }
+        
+        .progress-bar {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-input:focus {
+            border-color: #000;
+            ring-color: #000;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full glass nav-shadow z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+                <div class="flex items-center space-x-4 sm:space-x-8 lg:space-x-12">
+                    <a href="/" class="flex items-center space-x-2 lg:space-x-3 touch-feedback rounded-lg p-1 -m-1">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-black flex items-center justify-center font-black text-white text-sm lg:text-lg shadow-lg">
+                            ДС
+                        </div>
+                        <span class="font-extrabold text-gray-900 text-xs sm:text-sm lg:text-lg tracking-tight hidden sm:block">ДЕМОКРАТИЧНА СОКИРА</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-6">
+                    <a href="#" class="text-xs sm:text-sm font-bold text-gray-700 hover:text-black transition-colors px-2 py-1 rounded touch-feedback">EN</a>
+                    <button onclick="openDonate()" class="bg-black text-white px-3 sm:px-4 lg:px-6 py-2 lg:py-3 text-xs sm:text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                        ДОНАТ
+                    </button>
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 touch-feedback rounded-lg -mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full bg-white z-50 lg:hidden">
+        <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200">
+            <span class="font-bold text-gray-900 text-lg">МЕНЮ</span>
+            <button onclick="toggleMenu()" class="p-2 touch-feedback rounded-lg -mr-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-6">
+            <a href="/#projects" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРОЄКТИ</a>
+            <a href="/#reports" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ЗВІТНІСТЬ</a>
+            <a href="/#business" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">БІЗНЕСУ</a>
+            <a href="/#about" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРО НАС</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <section class="pt-20 sm:pt-24 lg:pt-32 pb-8 sm:pb-12 lg:pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4 sm:mb-6 tracking-tight">
+                    ВСІ ПРОЄКТИ
+                </h1>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600">
+                    276 реалізованих проєктів та 198 активних зборів коштів для підтримки ЗСУ
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters and Search -->
+    <section class="pb-8 sm:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Search -->
+                <div class="lg:col-span-2">
+                    <div class="relative">
+                        <input type="text" 
+                               placeholder="Пошук проєктів..." 
+                               class="w-full px-4 py-3 pr-10 border-2 border-gray-200 rounded-lg focus:outline-none search-input">
+                        <svg class="w-5 h-5 text-gray-400 absolute right-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Sort -->
+                <div>
+                    <select class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none appearance-none bg-white">
+                        <option value="newest">Найновіші</option>
+                        <option value="oldest">Найстаріші</option>
+                        <option value="most-funded">Найбільша сума</option>
+                        <option value="most-urgent">Термінові</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="flex flex-wrap gap-2 mt-4">
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all filter-active">
+                    ВСІ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    АКТИВНІ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ЗАВЕРШЕНІ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ТЕРМІНОВІ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ДРОНИ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ТРАНСПОРТ
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ЗВ'ЯЗОК
+                </button>
+                <button onclick="toggleFilter(this)" class="px-4 py-2 border-2 border-black text-sm font-bold transition-all">
+                    ОПТИКА
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="pb-12 sm:pb-16 lg:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Active Project Card -->
+                <div class="bg-white border-2 border-gray-200 hover:border-black transition-all duration-300 card-hover shadow-lg hover:shadow-xl rounded-lg overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                        <div class="absolute top-3 right-3 bg-red-600 text-white px-2.5 py-1 text-xs font-bold tracking-wider shadow-lg">
+                            ТЕРМІНОВЕ
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5">
+                        <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">ID: #2847</div>
+                        <h3 class="text-lg font-black text-gray-900 mb-2 tracking-tight">КВАДРОКОПТЕРИ MAVIC 3</h3>
+                        <p class="text-sm text-gray-600 mb-4">Необхідно 15 дронів для розвідки та коригування вогню</p>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-gray-500">ЗІБРАНО</span>
+                                <span class="text-gray-900">1,847,500 / 2,250,000 ₴</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                                <div class="bg-black h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs font-semibold mt-2">
+                                <span class="text-gray-500">82%</span>
+                                <span class="text-red-600 font-bold">402,500 ₴</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="donate(2847)" class="w-full bg-black text-white py-3 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                            ПІДТРИМАТИ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completed Project Card -->
+                <div class="bg-white border-2 border-gray-200 hover:border-black transition-all duration-300 card-hover shadow-lg hover:shadow-xl rounded-lg overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                        <div class="absolute top-3 right-3 bg-green-600 text-white px-2.5 py-1 text-xs font-bold tracking-wider shadow-lg">
+                            ЗАВЕРШЕНО
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5">
+                        <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">ID: #2846</div>
+                        <h3 class="text-lg font-black text-gray-900 mb-2 tracking-tight">ТЕПЛОВІЗІЙНІ ПРИЦІЛИ</h3>
+                        <p class="text-sm text-gray-600 mb-4">5 тепловізорів для нічного спостереження</p>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-gray-500">ЗІБРАНО</span>
+                                <span class="text-gray-900">2,600,000 / 2,600,000 ₴</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs font-semibold mt-2">
+                                <span class="text-gray-500">100%</span>
+                                <span class="text-green-600 font-bold">Завершено</span>
+                            </div>
+                        </div>
+                        
+                        <a href="/reports/2846" class="w-full bg-black text-white py-3 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg text-center block">
+                            ПЕРЕГЛЯНУТИ ЗВІТ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Active Project Card -->
+                <div class="bg-white border-2 border-gray-200 hover:border-black transition-all duration-300 card-hover shadow-lg hover:shadow-xl rounded-lg overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                        <div class="absolute top-3 right-3 bg-black text-white px-2.5 py-1 text-xs font-bold tracking-wider shadow-lg">
+                            АКТИВНО
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5">
+                        <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">ID: #2845</div>
+                        <h3 class="text-lg font-black text-gray-900 mb-2 tracking-tight">РАЦІЇ MOTOROLA</h3>
+                        <p class="text-sm text-gray-600 mb-4">15 комплектів радіозв'язку для підрозділів</p>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-xs font-semibold mb-2">
+                                <span class="text-gray-500">ЗІБРАНО</span>
+                                <span class="text-gray-900">580,000 / 825,000 ₴</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                                <div class="bg-black h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs font-semibold mt-2">
+                                <span class="text-gray-500">70%</span>
+                                <span class="text-gray-900 font-bold">245,000 ₴</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="donate(2845)" class="w-full bg-black text-white py-3 text-xs font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                            ПІДТРИМАТИ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- More Project Cards... -->
+            </div>
+
+            <!-- Load More -->
+            <div class="mt-8 sm:mt-12 text-center">
+                <button class="bg-black text-white px-8 py-4 text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-xl">
+                    ЗАВАНТАЖИТИ ЩЕ
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10">
+                <div class="col-span-2 lg:col-span-1">
+                    <div class="font-black text-base sm:text-lg mb-3 sm:mb-4 tracking-tight">ДЕМОКРАТИЧНА СОКИРА</div>
+                    <p class="text-xs sm:text-sm opacity-70 leading-relaxed">
+                        Благодійна організація підтримки Збройних Сил України
+                    </p>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ОРГАНІЗАЦІЯ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Про нас</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Команда</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Партнери</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Контакти</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ПРОЄКТИ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Активні збори</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Закриті проєкти</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Звітність</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Для бізнесу</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">РЕКВІЗИТИ</div>
+                    <div class="text-xs sm:text-sm opacity-70 mb-4 sm:mb-6 space-y-1">
+                        <div>ЄДРПОУ: 44533136</div>
+                        <div>IBAN: UA36...724311</div>
+                    </div>
+                    <div class="flex space-x-2 sm:space-x-3">
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">FB</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">IG</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">TG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-6 sm:pt-8 text-center text-xs sm:text-sm opacity-50">
+                <p>© 2025 ДЕМОКРАТИЧНА СОКИРА. ВСІ ПРАВА ЗАХИЩЕНО.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openDonate() {
+            alert('Відкриття форми донату. Тут буде інтеграція з платіжними системами.');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function donate(projectId) {
+            alert(`Донат на проєкт #${projectId}`);
+        }
+
+        function toggleFilter(button) {
+            // Remove active class from all filter buttons
+            document.querySelectorAll('[onclick="toggleFilter(this)"]').forEach(btn => {
+                btn.classList.remove('filter-active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('filter-active');
+        }
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                nav.classList.remove('nav-shadow');
+            } else {
+                nav.classList.add('nav-shadow');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
