@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звіт: Квадрокоптери Mavic 3 | Демократична Сокира</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        .tab-active {
+            color: black;
+            border-color: black;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full glass nav-shadow z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+                <div class="flex items-center space-x-4 sm:space-x-8 lg:space-x-12">
+                    <a href="/" class="flex items-center space-x-2 lg:space-x-3 touch-feedback rounded-lg p-1 -m-1">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-black flex items-center justify-center font-black text-white text-sm lg:text-lg shadow-lg">
+                            ДС
+                        </div>
+                        <span class="font-extrabold text-gray-900 text-xs sm:text-sm lg:text-lg tracking-tight hidden sm:block">ДЕМОКРАТИЧНА СОКИРА</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-6">
+                    <a href="#" class="text-xs sm:text-sm font-bold text-gray-700 hover:text-black transition-colors px-2 py-1 rounded touch-feedback">EN</a>
+                    <button onclick="openDonate()" class="bg-black text-white px-3 sm:px-4 lg:px-6 py-2 lg:py-3 text-xs sm:text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all tracking-wide shadow-lg">
+                        ДОНАТ
+                    </button>
+                    <button onclick="toggleMenu()" class="lg:hidden p-2 touch-feedback rounded-lg -mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full bg-white z-50 lg:hidden">
+        <div class="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200">
+            <span class="font-bold text-gray-900 text-lg">МЕНЮ</span>
+            <button onclick="toggleMenu()" class="p-2 touch-feedback rounded-lg -mr-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-6">
+            <a href="/#projects" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРОЄКТИ</a>
+            <a href="/#reports" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ЗВІТНІСТЬ</a>
+            <a href="/#business" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">БІЗНЕСУ</a>
+            <a href="/#about" class="block text-2xl sm:text-3xl font-black text-gray-900 py-2 touch-feedback rounded-lg -mx-2 px-2">ПРО НАС</a>
+        </div>
+    </div>
+
+    <!-- Breadcrumbs -->
+    <div class="pt-20 sm:pt-24 lg:pt-32 pb-4 sm:pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center space-x-2 text-xs sm:text-sm text-gray-500">
+                <a href="/" class="hover:text-black transition">ГОЛОВНА</a>
+                <span>/</span>
+                <a href="/reports" class="hover:text-black transition">ЗВІТНІСТЬ</a>
+                <span>/</span>
+                <span class="text-black font-medium">КВАДРОКОПТЕРИ MAVIC 3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Header -->
+    <section class="pb-8 sm:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+                <div>
+                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">ID: #2847</div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+                        КВАДРОКОПТЕРИ MAVIC 3
+                    </h1>
+                    <div class="inline-block bg-green-600 text-white px-3 py-1.5 text-xs font-bold tracking-wider mb-6">
+                        ЗАВЕРШЕНО
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="text-sm font-bold text-gray-900 mb-2">ПЕРІОД ЗБОРУ</div>
+                            <div class="text-gray-600">15.09.2025 — 30.10.2025</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-gray-900 mb-2">ЗІБРАНО КОШТІВ</div>
+                            <div class="text-gray-600">2,250,000 ₴</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-gray-900 mb-2">КІЛЬКІСТЬ ДОНАТІВ</div>
+                            <div class="text-gray-600">847 внесків</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <div class="text-center text-white/20">
+                            <div class="text-sm font-bold tracking-wider mb-1">HERO IMAGE</div>
+                            <div class="text-xs">1920 × 1080</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Tabs -->
+    <section class="pb-12 sm:pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="border-b border-gray-200">
+                <div class="flex space-x-8">
+                    <button onclick="switchTab('purchases')" class="tab-active pb-4 text-sm sm:text-base font-bold tracking-wide border-b-2 transition-colors">
+                        ЗАКУПІВЛІ
+                    </button>
+                    <button onclick="switchTab('transfers')" class="text-gray-500 hover:text-black pb-4 text-sm sm:text-base font-bold tracking-wide border-b-2 border-transparent transition-colors">
+                        ПЕРЕДАЧІ
+                    </button>
+                    <button onclick="switchTab('donates')" class="text-gray-500 hover:text-black pb-4 text-sm sm:text-base font-bold tracking-wide border-b-2 border-transparent transition-colors">
+                        ДОНАТИ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Purchases Tab -->
+            <div id="purchases" class="py-8">
+                <div class="space-y-6">
+                    <!-- Purchase Item -->
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">25.10.2025</div>
+                                    <h3 class="text-lg font-black text-gray-900 mb-2">Квадрокоптери DJI Mavic 3</h3>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div class="flex justify-between">
+                                            <span>Кількість:</span>
+                                            <span class="font-medium">15 шт</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Ціна за одиницю:</span>
+                                            <span class="font-medium">150,000 ₴</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Загальна сума:</span>
+                                            <span class="font-medium">2,250,000 ₴</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <div class="text-center text-white/20">
+                                                <div class="text-xs font-bold tracking-wider mb-1">PHOTO</div>
+                                                <div class="text-xs">800 × 450</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Рахунок-фактура.pdf
+                                </a>
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Специфікація.pdf
+                                </a>
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Гарантійний талон.pdf
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Item -->
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">25.10.2025</div>
+                                    <h3 class="text-lg font-black text-gray-900 mb-2">Додаткові акумулятори</h3>
+                                    <div class="space-y-2 text-sm text-gray-600">
+                                        <div class="flex justify-between">
+                                            <span>Кількість:</span>
+                                            <span class="font-medium">30 шт</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Ціна за одиницю:</span>
+                                            <span class="font-medium">12,000 ₴</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Загальна сума:</span>
+                                            <span class="font-medium">360,000 ₴</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <div class="text-center text-white/20">
+                                                <div class="text-xs font-bold tracking-wider mb-1">PHOTO</div>
+                                                <div class="text-xs">800 × 450</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Рахунок-фактура.pdf
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfers Tab -->
+            <div id="transfers" class="py-8 hidden">
+                <div class="space-y-6">
+                    <!-- Transfer Item -->
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">30.10.2025</div>
+                                    <h3 class="text-lg font-black text-gray-900 mb-2">93-тя ОМБр "Холодний Яр"</h3>
+                                    <div class="space-y-4 text-sm text-gray-600">
+                                        <p>
+                                            Передано 8 квадрокоптерів DJI Mavic 3 з додатковими акумуляторами та захисними кейсами.
+                                        </p>
+                                        <div>
+                                            <div class="font-medium text-gray-900 mb-1">Отримувач:</div>
+                                            <div>майор Петренко В.О.</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-gray-900 mb-1">Локація:</div>
+                                            <div>Донецький напрямок</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <div class="text-center text-white/20">
+                                                <div class="text-xs font-bold tracking-wider mb-1">PHOTO</div>
+                                                <div class="text-xs">800 × 450</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="image-gallery">
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Акт передачі.pdf
+                                </a>
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Відео передачі.mp4
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Item -->
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <div class="p-4 sm:p-6">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">30.10.2025</div>
+                                    <h3 class="text-lg font-black text-gray-900 mb-2">56-та ОМПБр "Маріуполь"</h3>
+                                    <div class="space-y-4 text-sm text-gray-600">
+                                        <p>
+                                            Передано 7 квадрокоптерів DJI Mavic 3 з додатковими акумуляторами та захисними кейсами.
+                                        </p>
+                                        <div>
+                                            <div class="font-medium text-gray-900 mb-1">Отримувач:</div>
+                                            <div>капітан Ковальчук М.І.</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-gray-900 mb-1">Локація:</div>
+                                            <div>Запорізький напрямок</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <div class="text-center text-white/20">
+                                                <div class="text-xs font-bold tracking-wider mb-1">PHOTO</div>
+                                                <div class="text-xs">800 × 450</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="image-gallery">
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                        <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex flex-wrap gap-2">
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Акт передачі.pdf
+                                </a>
+                                <a href="#" class="inline-block bg-gray-100 hover:bg-gray-200 transition px-3 py-1 rounded text-xs font-medium">
+                                    Відео передачі.mp4
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donates Tab -->
+            <div id="donates" class="py-8 hidden">
+                <div class="space-y-4">
+                    <!-- Date Group -->
+                    <div>
+                        <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">30 ЖОВТНЯ 2025</div>
+                        <div class="space-y-2">
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1">Анонімно</div>
+                                        <div class="text-xs text-gray-500">08:15:26</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">15,000 ₴</div>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1">Михайло К.</div>
+                                        <div class="text-xs text-gray-500">07:42:15</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">5,000 ₴</div>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1">ТОВ "Альфа"</div>
+                                        <div class="text-xs text-gray-500">07:15:00</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">100,000 ₴</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Group -->
+                    <div>
+                        <div class="text-xs font-bold tracking-wider text-gray-500 mb-2">29 ЖОВТНЯ 2025</div>
+                        <div class="space-y-2">
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1">Анонімно</div>
+                                        <div class="text-xs text-gray-500">15:30:00</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">1,000 ₴</div>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold text-gray-900 mb-1">Олена В.</div>
+                                        <div class="text-xs text-gray-500">12:45:00</div>
+                                    </div>
+                                    <div class="font-bold text-gray-900">2,500 ₴</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10">
+                <div class="col-span-2 lg:col-span-1">
+                    <div class="font-black text-base sm:text-lg mb-3 sm:mb-4 tracking-tight">ДЕМОКРАТИЧНА СОКИРА</div>
+                    <p class="text-xs sm:text-sm opacity-70 leading-relaxed">
+                        Благодійна організація підтримки Збройних Сил України
+                    </p>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ОРГАНІЗАЦІЯ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Про нас</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Команда</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Партнери</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Контакти</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">ПРОЄКТИ</div>
+                    <div class="space-y-2 text-xs sm:text-sm opacity-70">
+                        <div><a href="#" class="hover:opacity-100 transition">Активні збори</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Закриті проєкти</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Звітність</a></div>
+                        <div><a href="#" class="hover:opacity-100 transition">Для бізнесу</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-bold mb-3 sm:mb-4 text-xs sm:text-sm tracking-wider">РЕКВІЗИТИ</div>
+                    <div class="text-xs sm:text-sm opacity-70 mb-4 sm:mb-6 space-y-1">
+                        <div>ЄДРПОУ: 44533136</div>
+                        <div>IBAN: UA36...724311</div>
+                    </div>
+                    <div class="flex space-x-2 sm:space-x-3">
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">FB</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">IG</a>
+                        <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-all text-xs font-bold rounded">TG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-6 sm:pt-8 text-center text-xs sm:text-sm opacity-50">
+                <p>© 2025 ДЕМОКРАТИЧНА СОКИРА. ВСІ ПРАВА ЗАХИЩЕНО.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openDonate() {
+            alert('Відкриття форми донату. Тут буде інтеграція з платіжними системами.');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('#purchases, #transfers, #donates').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Update tab buttons
+            document.querySelectorAll('button[onclick^="switchTab"]').forEach(button => {
+                button.classList.remove('tab-active');
+                button.classList.add('text-gray-500');
+                button.classList.add('border-transparent');
+            });
+            
+            // Add active class to clicked button
+            const activeButton = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            activeButton.classList.add('tab-active');
+            activeButton.classList.remove('text-gray-500');
+            activeButton.classList.remove('border-transparent');
+        }
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                nav.classList.remove('nav-shadow');
+            } else {
+                nav.classList.add('nav-shadow');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
